@@ -1,0 +1,6 @@
+*.o
+*.out
+inventory_system
+.vscode/
+.idea/
+.DS_Store
