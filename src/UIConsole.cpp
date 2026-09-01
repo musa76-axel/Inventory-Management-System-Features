@@ -1,4 +1,5 @@
-#include "../include/UIConsole.hpp"
+
+#include "../include/ui.h"
 #include <iomanip>
 
 // --- Placeholder Functions (will be replaced by teammates) ---
@@ -9,7 +10,7 @@ void searchInventory(const std::string& searchTerm);
 
 // --- UI Implementation ---
 
-void UIConsole::displayMainMenu() {
+void UI::displayMainMenu() {
     std::cout << "\n" << std::string(40, '=') << std::endl;
     std::cout << "     INVENTORY MANAGEMENT SYSTEM" << std::endl;
     std::cout << std::string(40, '=') << std::endl;
@@ -21,7 +22,7 @@ void UIConsole::displayMainMenu() {
     std::cout << std::string(40, '-') << std::endl;
 }
 
-int UIConsole::getMenuChoice() {
+int UI::getMenuChoice() {
     while (true) {
         std::cout << "Enter your choice (1-5): ";
         int choice;
@@ -40,7 +41,7 @@ int UIConsole::getMenuChoice() {
     }
 }
 
-void UIConsole::run() {
+void UI::run() {
     std::cout << "\nInventory Management System Started!" << std::endl;
     
     while (true) {
@@ -73,7 +74,7 @@ void UIConsole::run() {
     }
 }
 
-void UIConsole::addProductUI() {
+void UI::addProductUI() {
     std::cout << "\nADD NEW PRODUCT" << std::endl;
     std::cout << std::string(30, '-') << std::endl;
     
@@ -85,7 +86,7 @@ void UIConsole::addProductUI() {
     std::cout << "Product added successfully!" << std::endl;
 }
 
-void UIConsole::updateStockUI() {
+void UI::updateStockUI() {
     std::cout << "\nUPDATE STOCK" << std::endl;
     std::cout << std::string(30, '-') << std::endl;
     
@@ -96,7 +97,7 @@ void UIConsole::updateStockUI() {
     std::cout << "Stock updated successfully!" << std::endl;
 }
 
-void UIConsole::removeProductUI() {
+void UI::removeProductUI() {
     std::cout << "\nREMOVE PRODUCT" << std::endl;
     std::cout << std::string(30, '-') << std::endl;
     
@@ -115,7 +116,7 @@ void UIConsole::removeProductUI() {
     }
 }
 
-void UIConsole::searchInventoryUI() {
+void UI::searchInventoryUI() {
     std::cout << "\nSEARCH INVENTORY" << std::endl;
     std::cout << std::string(30, '-') << std::endl;
     
@@ -123,7 +124,7 @@ void UIConsole::searchInventoryUI() {
     searchInventory(searchTerm);
 }
 
-int UIConsole::getIntInput(const std::string& prompt) {
+int UI::getIntInput(const std::string& prompt) {
     while (true) {
         std::cout << prompt;
         int value;
@@ -140,7 +141,7 @@ int UIConsole::getIntInput(const std::string& prompt) {
     }
 }
 
-double UIConsole::getDoubleInput(const std::string& prompt) {
+double UI::getDoubleInput(const std::string& prompt) {
     while (true) {
         std::cout << prompt;
         double value;
@@ -159,7 +160,7 @@ double UIConsole::getDoubleInput(const std::string& prompt) {
     }
 }
 
-std::string UIConsole::getStringInput(const std::string& prompt) {
+std::string UI::getStringInput(const std::string& prompt) {
     std::cout << prompt;
     std::string value;
     std::getline(std::cin, value);
@@ -172,7 +173,7 @@ std::string UIConsole::getStringInput(const std::string& prompt) {
     return value;
 }
 
-void UIConsole::clearInputBuffer() {
+void UI::clearInputBuffer() {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
