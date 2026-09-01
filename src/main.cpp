@@ -1,5 +1,5 @@
 
-#include "../include/ui.h"
+#include "../include/UIConsole.hpp"
 
 // --- PLACEHOLDER FUNCTIONS (to be replaced by teammates) ---
 void addProduct(const std::string& name, double price, int quantity) {
