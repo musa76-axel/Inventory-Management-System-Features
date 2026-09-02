@@ -1,6 +1,9 @@
 #include "../include/Product.hpp"
 #include "../include/Exceptions.hpp"
+<<<<<<< HEAD
 #include <iostream>
+=======
+>>>>>>> 30e5304 (Implement Product entity class and exception integration)
 
 
 Product::Product(int id, std::string name, int quantity, double price)
@@ -28,6 +31,7 @@ void Product::setPrice(double p) {
         throw InventoryException("Price cannot be negative.");
     }
     price = p;
+<<<<<<< HEAD
 }
 void Product::display() const {
     std::cout << "ID: " << id 
@@ -36,3 +40,6 @@ void Product::display() const {
                 << " | Price: $" << price << "\n";
 }
 
+=======
+}
+>>>>>>> 30e5304 (Implement Product entity class and exception integration)
