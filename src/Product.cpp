@@ -1,5 +1,6 @@
 #include "../include/Product.hpp"
 #include "../include/Exceptions.hpp"
+#include <iostream>
 
 
 Product::Product(int id, std::string name, int quantity, double price)
@@ -28,3 +29,10 @@ void Product::setPrice(double p) {
     }
     price = p;
 }
+void Product::display() const {
+    std::cout << "ID: " << id 
+                << " | Name: " << name 
+                << " | Quantity: " << quantity 
+                << " | Price: $" << price << "\n";
+}
+
