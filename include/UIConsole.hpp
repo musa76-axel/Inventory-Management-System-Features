@@ -10,4 +10,4 @@ public:
     void startMenu(InventoryManager<Product*>& manager);
 };
 
-#endif
+#endif // UICONSOLE_HPP
