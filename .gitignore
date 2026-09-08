@@ -5,3 +5,6 @@ inventory_system
 .idea/
 .DS_Storeinventory.csv
 app.exe
+
+*.exe
+*.o
