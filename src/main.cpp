@@ -34,6 +34,18 @@ int main() {
         std::cout << "[CAUGHT EXCEPTION] " << e.what() << "\n";
     }
 
+    try {
+        std::cout << "\nTesting File Persistence...\n";
+        manager.saveToFile("inventory.csv");
+        std::cout << "[SUCCESS] Saved inventory to inventory.csv\n";
+
+        InventoryManager newManager;
+        newManager.loadFromFile("inventory.csv");
+        std::cout << "[SUCCESS] Loaded inventory from inventory.csv\n";
+    } catch (const std::exception& e) {
+        std::cout << "[FILE I/O ERROR] " << e.what() << "\n";
+    }
+
     std::cout << "\n--- All Core Model Tests Passed ---\n";
     return 0;
 }

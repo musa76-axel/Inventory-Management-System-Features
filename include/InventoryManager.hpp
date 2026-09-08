@@ -3,6 +3,8 @@
 
 #include "Product.hpp"
 #include <vector>
+ll#include <string>
+#include "FileHandler.hpp"
 
 class InventoryManager {
 private:
@@ -13,7 +15,10 @@ public:
     void addProduct(const Product& product);
     void removeProduct(int id);
     Product* findProduct(int id);
-    const std::vector<Product>& getAllProducts() const;
+    const std::vector<Product>&getAllProducts() const;
+    
+    void saveToFile(const std::string&filename) const;
+    void loadFromFile(const std::string&filename);
     
     // Helper Methods
     bool productExists(int id) const;
