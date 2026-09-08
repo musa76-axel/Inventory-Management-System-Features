@@ -3,7 +3,7 @@
 
 #include "Product.hpp"
 #include <vector>
-#include <string>
+ll#include <string>
 #include "FileHandler.hpp"
 
 class InventoryManager {
@@ -25,5 +25,4 @@ public:
     int getProductCount() const;
 };
 
-
-#endif
+#endif // INVENTORY_MANAGER_HPP

@@ -20,13 +20,20 @@ void FileHandler::saveToCSV(const std::string& filename, const std::vector<Produ
 }
 
 std::vector<Product> FileHandler::loadFromCSV(const std::string& filename) {
-    std::vector<Product> items;
     std::ifstream file(filename);
+
     if (!file.is_open()) {
-        return items;
+        throw std::runtime_error("FileHandler Error: Could not open file for reading: " + filename);
     }
 
+    std::vector<Product> loadedProducts;
     std::string line;
+
+    
+    if (std::getline(file, line)) {
+        
+    }
+
     while (std::getline(file, line)) {
         if (line.empty()) continue;
 
