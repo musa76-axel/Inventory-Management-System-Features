@@ -1,51 +1,29 @@
-#ifndef INVENTORYMANAGER_HPP
-#define INVENTORYMANAGER_HPP
+#ifndef INVENTORY_MANAGER_HPP
+#define INVENTORY_MANAGER_HPP
 
+#include "Product.hpp"
 #include <vector>
-#include "Exceptions.hpp"
+#include <string>
+#include "FileHandler.hpp"
 
-template <typename T>
 class InventoryManager {
 private:
-    std::vector<T> items;
+    std::vector<Product> inventory;
 
 public:
-    InventoryManager() = default;
-    ~InventoryManager() = default;
-
-    void add(const T& item);
-    bool removeById(int id);
-    T findById(int id) const;
-    void updateQuantity(int id, int newQty);
-
-    const std::vector<T>& getAll() const { return items; }
+    // Core Inventory Operations
+    void addProduct(const Product& product);
+    void removeProduct(int id);
+    Product* findProduct(int id);
+    const std::vector<Product>&getAllProducts() const;
+    
+    void saveToFile(const std::string&filename) const;
+    void loadFromFile(const std::string&filename);
+    
+    // Helper Methods
+    bool productExists(int id) const;
+    int getProductCount() const;
 };
-template <typename T>
-void InventoryManager<T>::add(const T& item)
-{
-    for (const auto& existingItem : items)
-    {
-        if (existingItem.getId() == item.getId())
-        {
-            throw DuplicateIDException("Product ID already exists.");
-        }
-    }
 
-    items.push_back(item);
-}
-template <typename T>
-bool InventoryManager<T>::removeById(int id)
-{
-    for (auto it = items.begin(); it != items.end(); ++it)
-    {
-        if (it->getId() == id)
-        {
-            items.erase(it);
-            return true;
-        }
-    }
-
-    throw ProductNotFoundException("Product not found.");
-}
 
 #endif

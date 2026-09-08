@@ -3,4 +3,5 @@
 inventory_system
 .vscode/
 .idea/
-.DS_Store
+.DS_Storeinventory.csv
+app.exe
