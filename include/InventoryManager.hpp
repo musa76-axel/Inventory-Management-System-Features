@@ -1,10 +1,9 @@
 #ifndef INVENTORY_MANAGER_HPP
 #define INVENTORY_MANAGER_HPP
-
 #include "Product.hpp"
 #include <vector>
-ll#include <string>
-#include "FileHandler.hpp"
+#include <string>
+
 
 class InventoryManager {
 private:
@@ -20,7 +19,7 @@ public:
     void saveToFile(const std::string&filename) const;
     void loadFromFile(const std::string&filename);
     
-    // Helper Methods
+    // Helper Met3hods
     bool productExists(int id) const;
     int getProductCount() const;
 };

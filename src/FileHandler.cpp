@@ -10,6 +10,7 @@ void FileHandler::saveToCSV(const std::string& filename, const std::vector<Produ
         throw std::runtime_error("Could not open file for writing.");
     }
 
+
     for (const auto& item : items) {
         file << item.getId() << ","
              << item.getName() << ","
@@ -26,7 +27,7 @@ std::vector<Product> FileHandler::loadFromCSV(const std::string& filename) {
         throw std::runtime_error("FileHandler Error: Could not open file for reading: " + filename);
     }
 
-    std::vector<Product> loadedProducts;
+    std::vector<Product> items;
     std::string line;
 
     
@@ -48,6 +49,7 @@ std::vector<Product> FileHandler::loadFromCSV(const std::string& filename) {
             int id = std::stoi(idStr);
             int quantity = std::stoi(quantityStr);
             double price = std::stod(priceStr);
+
 
             items.emplace_back(id, name, quantity, price);
         }
