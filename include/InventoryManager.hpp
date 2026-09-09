@@ -1,13 +1,17 @@
 #ifndef INVENTORY_MANAGER_HPP
 #define INVENTORY_MANAGER_HPP
-
 #include "Product.hpp"
 #include <vector>
+<<<<<<< HEAD
 <<<<<<< HEAD
 #include <string>
 #include "FileHandler.hpp"
 =======
 >>>>>>> 010db06 (Add InventoryManager header and implementation)
+=======
+#include <string>
+
+>>>>>>> a369e74 (Fic FileHandler scope and verify CSV persistence)
 
 class InventoryManager {
 private:
@@ -27,7 +31,7 @@ public:
     const std::vector<Product>& getAllProducts() const;
 >>>>>>> 010db06 (Add InventoryManager header and implementation)
     
-    // Helper Methods
+    // Helper Met3hods
     bool productExists(int id) const;
     int getProductCount() const;
 };
