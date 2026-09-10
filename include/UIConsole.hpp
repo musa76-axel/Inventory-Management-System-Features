@@ -2,12 +2,14 @@
 #define UICONSOLE_HPP
 
 #include "InventoryManager.hpp"
-#include "Product.hpp"
 
 class UIConsole {
+private:
+    InventoryManager& manager;
+
 public:
-    UIConsole() = default;
-    void startMenu(InventoryManager<Product*>& manager);
+    explicit UIConsole(InventoryManager& mgr);
+    void run();
 };
 
-#endif // UICONSOLE_HPP
+#endif

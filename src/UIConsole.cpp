@@ -1,179 +1,110 @@
+#include "../include/UIConsole.hpp"
+#include "../include/Exceptions.hpp"
+#include <iostream>
+#include <limits>
+#include <string>
 
-#include "../include/ui.h"
-#include <iomanip>
+UIConsole::UIConsole(InventoryManager& mgr) : manager(mgr) {}
 
-// --- Placeholder Functions (will be replaced by teammates) ---
-void addProduct(const std::string& name, double price, int quantity);
-void removeProduct(int productId);
-void updateStock(int productId, int newQuantity);
-void searchInventory(const std::string& searchTerm);
-
-// --- UI Implementation ---
-
-void UI::displayMainMenu() {
-    std::cout << "\n" << std::string(40, '=') << std::endl;
-    std::cout << "     INVENTORY MANAGEMENT SYSTEM" << std::endl;
-    std::cout << std::string(40, '=') << std::endl;
-    std::cout << "1. Add Products" << std::endl;
-    std::cout << "2. Update Stock" << std::endl;
-    std::cout << "3. Remove Products" << std::endl;
-    std::cout << "4. Search Inventory" << std::endl;
-    std::cout << "5. Exit" << std::endl;
-    std::cout << std::string(40, '-') << std::endl;
-}
-
-int UI::getMenuChoice() {
-    while (true) {
-        std::cout << "Enter your choice (1-5): ";
-        int choice;
-        std::cin >> choice;
-        
-        if (std::cin.fail()) {
-            std::cin.clear();
-            clearInputBuffer();
-            std::cout << "Invalid input. Please enter a number." << std::endl;
-        } else if (choice >= 1 && choice <= 5) {
-            clearInputBuffer();
-            return choice;
-        } else {
-            std::cout << "Invalid choice. Please enter a number between 1 and 5." << std::endl;
-        }
+void UIConsole::run() {
+    // Attempt loading existing file on startup
+    try {
+        manager.loadFromFile("inventory.csv");
+        std::cout << "[INFO] Loaded existing inventory data.\n";
+    } catch (...) {
+        std::cout << "[INFO] Starting with an empty inventory.\n";
     }
-}
 
-void UI::run() {
-    std::cout << "\nInventory Management System Started!" << std::endl;
-    
-    while (true) {
-        displayMainMenu();
-        int choice = getMenuChoice();
-        
+    int choice = 0;
+    while (choice != 5) {
+        std::cout << "\n=================================\n";
+        std::cout << "  INVENTORY MANAGEMENT SYSTEM    \n";
+        std::cout << "=================================\n";
+        std::cout << "1. Add Product\n";
+        std::cout << "2. Display All Products\n";
+        std::cout << "3. Find Product by ID\n";
+        std::cout << "4. Save & Exit\n";
+        std::cout << "5. Exit Without Saving\n";
+        std::cout << "Enter choice: ";
+
+        if (!(std::cin >> choice)) {
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << "Invalid input. Please enter a valid number.\n";
+            continue;
+        }
+
         switch (choice) {
-            case 1:
-                addProductUI();
+            case 1: {
+                int id, qty;
+                std::string name;
+                double price;
+
+                std::cout << "Enter Product ID: ";
+                std::cin >> id;
+                std::cout << "Enter Product Name: ";
+                std::cin.ignore(10000, '\n');
+                std::getline(std::cin, name);
+                std::cout << "Enter Quantity: ";
+                std::cin >> qty;
+                std::cout << "Enter Price: ";
+                std::cin >> price;
+
+                try {
+                    manager.addProduct(Product(id, name, qty, price));
+                    std::cout << "[SUCCESS] Product added.\n";
+                } catch (const std::exception& e) {
+                    std::cout << "[ERROR] " << e.what() << "\n";
+                }
                 break;
-            case 2:
-                updateStockUI();
+            }
+            
+case 2: {
+            const auto& products = manager.getAllProducts();
+            if (products.empty()) {
+                std::cout << "[INFO] Inventory is currently empty.\n";
+            } else {
+                std::cout << "\n--- Current Inventory ---\n";
+                for (const auto& p : products) {
+                    std::cout << "ID: " << p.getId()
+                              << " | Name: " << p.getName()
+                              << " | Qty: " << p.getQuantity()
+                              << " | Price: $" << p.getPrice() << "\n";
+                }
+            }
+            break;
+        }
+
+            case 3: {
+                int id;
+                std::cout << "Enter Product ID to search: ";
+                std::cin >> id;
+                try {
+                    Product* p = manager.findProduct(id);
+                    std::cout << "[FOUND] ID: " << p->getId()
+                              << " | Name: " << p->getName()
+                              << " | Qty: " << p->getQuantity()
+                              << " | Price: $" << p->getPrice() << "\n";
+                } catch (const std::exception& e) {
+                    std::cout << "[ERROR] " << e.what() << "\n";
+                }
                 break;
-            case 3:
-                removeProductUI();
-                break;
+            }
             case 4:
-                searchInventoryUI();
+                try {
+                    manager.saveToFile("inventory.csv");
+                    std::cout << "[SUCCESS] Data saved to inventory.csv. Exiting...\n";
+                    return;
+                } catch (const std::exception& e) {
+                    std::cout << "[ERROR] Could not save data: " << e.what() << "\n";
+                }
                 break;
             case 5:
-                std::cout << "\nExiting Inventory Management System. Goodbye!" << std::endl;
-                return;
+                std::cout << "Exiting without saving changes...\n";
+                break;
             default:
+                std::cout << "Invalid choice. Please enter a number between 1 and 5.\n";
                 break;
         }
-        
-        std::cout << "\nPress Enter to continue...";
-        std::cin.get();
-        clearInputBuffer();
     }
-}
-
-void UI::addProductUI() {
-    std::cout << "\nADD NEW PRODUCT" << std::endl;
-    std::cout << std::string(30, '-') << std::endl;
-    
-    std::string name = getStringInput("Enter product name: ");
-    double price = getDoubleInput("Enter product price: $");
-    int quantity = getIntInput("Enter product quantity: ");
-    
-    addProduct(name, price, quantity);
-    std::cout << "Product added successfully!" << std::endl;
-}
-
-void UI::updateStockUI() {
-    std::cout << "\nUPDATE STOCK" << std::endl;
-    std::cout << std::string(30, '-') << std::endl;
-    
-    int productId = getIntInput("Enter product ID to update: ");
-    int newQuantity = getIntInput("Enter new quantity: ");
-    
-    updateStock(productId, newQuantity);
-    std::cout << "Stock updated successfully!" << std::endl;
-}
-
-void UI::removeProductUI() {
-    std::cout << "\nREMOVE PRODUCT" << std::endl;
-    std::cout << std::string(30, '-') << std::endl;
-    
-    int productId = getIntInput("Enter product ID to remove: ");
-    
-    std::cout << "Are you sure you want to remove product ID " << productId << "? (y/n): ";
-    std::string confirm;
-    std::cin >> confirm;
-    clearInputBuffer();
-    
-    if (confirm == "y" || confirm == "Y" || confirm == "yes" || confirm == "YES") {
-        removeProduct(productId);
-        std::cout << "Product removed successfully!" << std::endl;
-    } else {
-        std::cout << "Deletion cancelled." << std::endl;
-    }
-}
-
-void UI::searchInventoryUI() {
-    std::cout << "\nSEARCH INVENTORY" << std::endl;
-    std::cout << std::string(30, '-') << std::endl;
-    
-    std::string searchTerm = getStringInput("Enter search term (name or ID): ");
-    searchInventory(searchTerm);
-}
-
-int UI::getIntInput(const std::string& prompt) {
-    while (true) {
-        std::cout << prompt;
-        int value;
-        std::cin >> value;
-        
-        if (std::cin.fail()) {
-            std::cin.clear();
-            clearInputBuffer();
-            std::cout << "Invalid input. Please enter a valid integer." << std::endl;
-        } else {
-            clearInputBuffer();
-            return value;
-        }
-    }
-}
-
-double UI::getDoubleInput(const std::string& prompt) {
-    while (true) {
-        std::cout << prompt;
-        double value;
-        std::cin >> value;
-        
-        if (std::cin.fail()) {
-            std::cin.clear();
-            clearInputBuffer();
-            std::cout << "Invalid input. Please enter a valid number." << std::endl;
-        } else if (value < 0) {
-            std::cout << "Price cannot be negative. Please enter a positive number." << std::endl;
-        } else {
-            clearInputBuffer();
-            return value;
-        }
-    }
-}
-
-std::string UI::getStringInput(const std::string& prompt) {
-    std::cout << prompt;
-    std::string value;
-    std::getline(std::cin, value);
-    
-    while (value.empty()) {
-        std::cout << "Input cannot be empty. Please enter a value: ";
-        std::getline(std::cin, value);
-    }
-    
-    return value;
-}
-
-void UI::clearInputBuffer() {
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }

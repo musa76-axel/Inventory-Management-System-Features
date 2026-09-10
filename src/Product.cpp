@@ -1,13 +1,6 @@
 #include "../include/Product.hpp"
 #include "../include/Exceptions.hpp"
- HEAD
- HEAD
 #include <iostream>
-
- 30e5304 (Implement Product entity class and exception integration)
-
-#include <iostream>
- 8fb1909 (fix: implement Product::display and fix setPrice syntax error)
 
 
 Product::Product(int id, std::string name, int quantity, double price)
@@ -35,10 +28,6 @@ void Product::setPrice(double p) {
         throw InventoryException("Price cannot be negative.");
     }
     price = p;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8fb1909 (fix: implement Product::display and fix setPrice syntax error)
 }
 void Product::display() const {
     std::cout << "ID: " << id 
@@ -47,9 +36,3 @@ void Product::display() const {
                 << " | Price: $" << price << "\n";
 }
 
-<<<<<<< HEAD
-=======
-}
->>>>>>> 30e5304 (Implement Product entity class and exception integration)
-=======
->>>>>>> 8fb1909 (fix: implement Product::display and fix setPrice syntax error)

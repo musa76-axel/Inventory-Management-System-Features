@@ -1,9 +1,6 @@
 #include "../include/InventoryManager.hpp"
 #include "../include/Exceptions.hpp"
-<<<<<<< HEAD
 #include "../include/FileHandler.hpp"
-=======
->>>>>>> 010db06 (Add InventoryManager header and implementation)
 #include <algorithm>
 
 void InventoryManager::addProduct(const Product& product) {
@@ -48,7 +45,6 @@ bool InventoryManager::productExists(int id) const {
 
 int InventoryManager::getProductCount() const {
     return static_cast<int>(inventory.size());
-<<<<<<< HEAD
 }
 
 void InventoryManager::saveToFile(const std::string& filename) const {
@@ -57,6 +53,4 @@ void InventoryManager::saveToFile(const std::string& filename) const {
 
 void InventoryManager::loadFromFile(const std::string& filename) {
     inventory = FileHandler::loadFromCSV(filename);
-=======
->>>>>>> 010db06 (Add InventoryManager header and implementation)
 }
