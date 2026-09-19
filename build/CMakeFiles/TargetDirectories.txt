@@ -1,0 +1,4 @@
+C:/Users/Sibongumusa Mnguni/Inventory-Management-System-Features/build/CMakeFiles/InventoryCLI.dir
+C:/Users/Sibongumusa Mnguni/Inventory-Management-System-Features/build/CMakeFiles/InventoryGUI.dir
+C:/Users/Sibongumusa Mnguni/Inventory-Management-System-Features/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Sibongumusa Mnguni/Inventory-Management-System-Features/build/CMakeFiles/ZERO_CHECK.dir

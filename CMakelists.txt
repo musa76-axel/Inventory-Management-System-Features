@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 3.15)
+project(InventoryManagementSystem CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+
+find_package(wxWidgets REQUIRED CONFIG)
+
+include_directories(src include)
+
+# Shared Core Backend Files
+set(CORE_SOURCES
+    src/InventoryManager.cpp
+    src/FileHandler.cpp
+    src/Product.cpp
+)
+
+# Target 1: Command Line Interface Executable
+add_executable(InventoryCLI
+    src/main.cpp
+    src/UIConsole.cpp
+    ${CORE_SOURCES}
+)
+
+# Target 2: Graphical User Interface Executable (WIN32 uses WinMain)
+add_executable(InventoryGUI WIN32
+    src/UIMainWindow.cpp
+    ${CORE_SOURCES}
+)
+
+target_link_libraries(InventoryGUI PRIVATE wx::core wx::base)

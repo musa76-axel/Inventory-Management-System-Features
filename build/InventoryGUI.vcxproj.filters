@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Sibongumusa Mnguni\Inventory-Management-System-Features\src\UIMainWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Sibongumusa Mnguni\Inventory-Management-System-Features\src\InventoryManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Sibongumusa Mnguni\Inventory-Management-System-Features\src\FileHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Sibongumusa Mnguni\Inventory-Management-System-Features\src\Product.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Sibongumusa Mnguni\Inventory-Management-System-Features\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{6C91F80A-2B88-35B6-B454-38A0C8A0A83A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

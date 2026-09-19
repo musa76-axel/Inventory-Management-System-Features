@@ -1,59 +1,47 @@
-#include "../include/FileHandler.hpp"
+#include "FileHandler.hpp"
 #include <fstream>
 #include <sstream>
-#include <iostream>
-#include <stdexcept>
 
-void FileHandler::saveToCSV(const std::string& filename, const std::vector<Product>& items) {
+void FileHandler::saveToCSV(const std::string& filename, const std::vector<Product>& products) {
     std::ofstream file(filename);
-    if (!file.is_open()) {
-        throw std::runtime_error("Could not open file for writing.");
-    }
+    if (!file.is_open()) return;
 
-
-    for (const auto& item : items) {
-        file << item.getId() << ","
-             << item.getName() << ","
-             << item.getQuantity() << ","
-             << item.getPrice() << "\n";
+    for (const auto& prod : products) {
+        file << prod.getId() << ","
+             << prod.getName() << ","
+             << prod.getPrice() << ","
+             << prod.getQuantity() << "\n";
     }
     file.close();
 }
 
 std::vector<Product> FileHandler::loadFromCSV(const std::string& filename) {
+    std::vector<Product> products;
     std::ifstream file(filename);
+    if (!file.is_open()) return products;
 
-    if (!file.is_open()) {
-        throw std::runtime_error("FileHandler Error: Could not open file for reading: " + filename);
-    }
-
-    std::vector<Product> items;
     std::string line;
-
-    
-    if (std::getline(file, line)) {
-        
-    }
-
     while (std::getline(file, line)) {
         if (line.empty()) continue;
-
         std::stringstream ss(line);
-        std::string idStr, name, quantityStr, priceStr;
+        std::string idStr, name, priceStr, qtyStr;
 
         if (std::getline(ss, idStr, ',') &&
             std::getline(ss, name, ',') &&
-            std::getline(ss, quantityStr, ',') &&
-            std::getline(ss, priceStr, ',')) {
+            std::getline(ss, priceStr, ',') &&
+            std::getline(ss, qtyStr)) {
+            try {
+                int id = std::stoi(idStr);
+                double price = std::stod(priceStr);
+                int qty = std::stoi(qtyStr);
 
-            int id = std::stoi(idStr);
-            int quantity = std::stoi(quantityStr);
-            double price = std::stod(priceStr);
-
-
-            items.emplace_back(id, name, quantity, price);
+                // Explicit constructor call prevents MSVC template conversion warnings
+                products.push_back(Product(id, name, price, qty));
+            } catch (...) {
+                // Skip malformed lines
+            }
         }
     }
     file.close();
-    return items;
+    return products;
 }

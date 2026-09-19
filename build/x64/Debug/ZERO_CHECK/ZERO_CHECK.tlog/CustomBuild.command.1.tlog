@@ -1,0 +1,10 @@
+^C:\USERS\SIBONGUMUSA MNGUNI\INVENTORY-MANAGEMENT-SYSTEM-FEATURES\BUILD\CMAKEFILES\2AEC07740138197978E3DBAA8C7437CB\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/Sibongumusa Mnguni/Inventory-Management-System-Features" "-BC:/Users/Sibongumusa Mnguni/Inventory-Management-System-Features/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/Sibongumusa Mnguni/Inventory-Management-System-Features/build/InventoryManagementSystem.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
