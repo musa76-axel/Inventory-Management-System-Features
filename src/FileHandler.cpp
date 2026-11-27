@@ -35,10 +35,10 @@ std::vector<Product> FileHandler::loadFromCSV(const std::string& filename) {
                 double price = std::stod(priceStr);
                 int qty = std::stoi(qtyStr);
 
-                // Explicit constructor call prevents MSVC template conversion warnings
+                
                 products.push_back(Product(id, name, price, qty));
             } catch (...) {
-                // Skip malformed lines
+                
             }
         }
     }
