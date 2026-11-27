@@ -3,9 +3,11 @@
 
 #include "InventoryManager.hpp"
 
-class UIConsole {
+class UIConsole 
+{
 private:
-    InventoryManager& manager;
+    I
+nventoryManager& manager;
 
 public:
     explicit UIConsole(InventoryManager& mgr);
